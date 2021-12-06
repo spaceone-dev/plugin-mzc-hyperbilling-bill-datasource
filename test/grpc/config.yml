@@ -1,0 +1,5 @@
+GLOBAL:
+  SERVICE: billing
+  ENDPOINTS:
+    billing:
+      plugin: localhost:50051
