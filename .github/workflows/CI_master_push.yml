@@ -46,7 +46,7 @@ jobs:
           repository: ${{ env.ORGANIZATION }}/${{ env.SERVICE }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          tags: latest,${{ env.VERSION }}
+          tags: ${{ env.VERSION }}
           
       - name: Slack
         if: always()
