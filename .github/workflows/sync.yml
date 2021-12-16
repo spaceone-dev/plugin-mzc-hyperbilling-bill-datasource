@@ -15,7 +15,7 @@ on:
 
 env:
   workflow_file_name: deploy.yaml
-  owner: spaceone
+  owner: spaceone-dev
   repo: actions
   ref: master
 
