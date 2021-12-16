@@ -6,7 +6,7 @@ on:
       - master
     paths-ignore:
       - '.github/**'
-      - 'src/**'
+      - 'src/VERSION'
   workflow_dispatch:
     inputs:
       tag:
