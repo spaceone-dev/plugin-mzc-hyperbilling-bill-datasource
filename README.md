@@ -21,8 +21,6 @@ See LICENSE file.
 
 DO NOT RELEASE SOURCE IN PUBLIC.
 
-DO NOT UPLOAD DOCKER IMAGE AT PUBLIC SPACEONE MARKET-PLACE.
-
 # Upload image
 
 ~~~
@@ -33,4 +31,4 @@ make upload VERSION=x.y
 
 | Version | Relase Date |
 |---      | ---         |
-| 1.0     | 2021.11     |
+| 0.3.0   | 2021.12     |

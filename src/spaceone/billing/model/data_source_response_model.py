@@ -5,8 +5,8 @@ from schematics.types.compound import ModelType
 __all__ = ['PluginInitResponse']
 
 _SUPPORTED_RESOURCE_TYPE = [
-    'inventory.CloudService?provider=gcp',
-    'inventory.CloudService?provider=alibaba',
+    'inventory.CloudService?provider=google_cloud',
+    'inventory.CloudService?provider=alibaba_cloud',
     'inventory.CloudService?provider=tencent',
     'inventory.CloudService?provider=akamai'
 ]

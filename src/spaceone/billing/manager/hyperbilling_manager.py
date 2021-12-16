@@ -31,6 +31,12 @@ KINDS = {
     'inventory.CloudServiceType': 'cost_by_service'
 }
 
+# Add provider
+PROVIDER = {
+    'gcp': 'google_cloud',
+    'alibaba': 'alibaba_cloud'
+}
+
 # SpaceONE Resource type -> Hyperbilling code
 
 def _get_signed_jwt(secret_data):
@@ -61,8 +67,8 @@ def _get_months(start, end):
     return: list of month
     ex) [202110, 202111, 202112]
     """
-    t_start = datetime.strptime(start, '%Y-%m')
-    t_end = datetime.strptime(end, '%Y-%m')
+    t_start = datetime.strptime(start, '%Y-%m-%d')
+    t_end = datetime.strptime(end, '%Y-%m-%d')
     months = [t_start.strftime("%Y%m")]
     next_month = t_start + relativedelta(months=1)
     while next_month <= t_end:
@@ -180,8 +186,8 @@ def _parse_monthly_cost(data, start, end, month):
             }, 
         """
     results = []
-    t_start = datetime.strptime(start, '%Y-%m')
-    t_end = datetime.strptime(end, '%Y-%m')
+    t_start = datetime.strptime(start, '%Y-%m-%d')
+    t_end = datetime.strptime(end, '%Y-%m-%d')
     for item in data:
         if item['invoice_month'] != month:
             # Hyperbilling Bug
@@ -233,8 +239,8 @@ def _parse_monthly_cost_by_region(data, start, end, month, key_prefix):
         """
     results = []
     this_month = datetime.strptime(month, '%Y%m')
-    t_start = datetime.strptime(start, '%Y-%m')
-    t_end = datetime.strptime(end, '%Y-%m')
+    t_start = datetime.strptime(start, '%Y-%m-%d')
+    t_end = datetime.strptime(end, '%Y-%m-%d')
 
     output = {}
     for item in data:
@@ -281,8 +287,8 @@ def _parse_monthly_cost_by_service(data, start, end, month, key_prefix):
         """
     results = []
     this_month = datetime.strptime(month, '%Y%m')
-    t_start = datetime.strptime(start, '%Y-%m')
-    t_end = datetime.strptime(end, '%Y-%m')
+    t_start = datetime.strptime(start, '%Y-%m-%d')
+    t_end = datetime.strptime(end, '%Y-%m-%d')
 
     output = {}
     for item in data:
@@ -310,7 +316,11 @@ class HyperbillingManager(BaseManager):
         # Check secret format first
         self._check_schema(secret_data, schema)
 
-        provider = secret_data['platform']
+        platform = secret_data['platform']
+        if platform in PROVIDER:
+            provider = PROVIDER[platform]
+        else:
+            provider = platform
 
         headers = self._get_headers(secret_data)
         my_filters = self._create_filters(secret_data, filters, aggregation, start, end, granularity)

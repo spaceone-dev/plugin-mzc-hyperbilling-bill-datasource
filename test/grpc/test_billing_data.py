@@ -56,8 +56,8 @@ class TestBilling(TestCase):
         end = "2021-09-30"
 
         granularity = 'MONTHLY'
-        start = '2021-09'
-        end = '2021-11'
+        start = '2021-09-01'
+        end = '2021-11-30'
         billing_result = self.billing.Billing.get_data({'options': options,
                                                     'secret_data': secret_data,
                                                     'filter': filter,
